@@ -1,8 +1,11 @@
-// import { useState } from "react";
+import { useEffect, useState } from "react";
 import { login } from "../api/auth.api";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { useAuth } from "../hooks/useAuth";
+import { getUserByToken } from "../api/auth.api";
+import { AxiosError } from "axios";
 
 const loginSchema = Yup.object().shape({
   username: Yup.string().min(3).max(30).required("Username is required"),
@@ -14,22 +17,55 @@ const initialValues = {
   password: "",
 };
 
+function isAxiosError(error: unknown): error is AxiosError {
+  return (error as AxiosError).isAxiosError !== undefined;
+}
+
 function LoginPage() {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { saveAuth, setCurrentUser, currentUser } = useAuth();
+
+  useEffect(() => {
+    console.log("Current user:", currentUser);
+  }, [currentUser]);
 
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
-    onSubmit: async (values) => {
+    onSubmit: async (values, { setStatus, setSubmitting }) => {
+      setLoading(true);
       try {
         const response = await login(values.username, values.password);
-        if (response) {
-          localStorage.setItem("user", JSON.stringify(response.user));
-          navigate("/home");
+        if (response && response.token && response.refreshToken) {
+          saveAuth({
+            token: response.token,
+            refreshToken: response.refreshToken,
+          });
+          const { data: user } = await getUserByToken();
+          if (user) {
+            setCurrentUser(user);
+            navigate("/home");
+          }
         }
       } catch (error) {
         console.error("Login failed", error);
+        saveAuth(undefined);
+
+        if (isAxiosError(error)) {
+          const { response } = error;
+          if (response) {
+            const { status, data } = response;
+            if (status === 401) {
+              setStatus((data as { error: string }).error);
+            } else if (status === 500) {
+              setStatus((data as { error: string }).error);
+            }
+          }
+        }
       }
+      setSubmitting(false);
+      setLoading(false);
     },
   });
 
@@ -86,8 +122,20 @@ function LoginPage() {
         ) : null}
       </div>
       <div className="form-group mb-3 mt-4">
-        <button type="submit" className="btn btn-warning w-100">
-          Login
+        <button
+          type="submit"
+          className="btn btn-warning w-100"
+          disabled={formik.isSubmitting || !formik.isValid}
+        >
+          {loading ? (
+            <span
+              className="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+          ) : (
+            "Login"
+          )}
         </button>
       </div>
       <div className="form-group mb-3">

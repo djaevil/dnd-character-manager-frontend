@@ -4,6 +4,8 @@ import GuestLayout from "../layouts/GuestLayout";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
+import ProtectedRoute from "./ProtectedRoute";
+import GuestRoute from "./GuestRoute";
 
 function App() {
   return (
@@ -12,25 +14,31 @@ function App() {
         <Route
           path="/home"
           element={
-            <AuthLayout>
-              <HomePage />
-            </AuthLayout>
+            <ProtectedRoute>
+              <AuthLayout>
+                <HomePage />
+              </AuthLayout>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/login"
           element={
-            <GuestLayout>
-              <LoginPage />
-            </GuestLayout>
+            <GuestRoute>
+              <GuestLayout>
+                <LoginPage />
+              </GuestLayout>
+            </GuestRoute>
           }
         />
         <Route
           path="/register"
           element={
-            <GuestLayout>
-              <RegisterPage />
-            </GuestLayout>
+            <GuestRoute>
+              <GuestLayout>
+                <RegisterPage />
+              </GuestLayout>
+            </GuestRoute>
           }
         />
       </Routes>
