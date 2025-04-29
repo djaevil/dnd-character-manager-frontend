@@ -1,12 +1,12 @@
 // import { useState } from "react";
-import { login } from "../api/auth.api"; // Adjust the import path as necessary
+import { login } from "../api/auth.api";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
 const loginSchema = Yup.object().shape({
-  username: Yup.string().min(3).required("Username is required"),
-  password: Yup.string().min(3).required("Password is required"),
+  username: Yup.string().min(3).max(30).required("Username is required"),
+  password: Yup.string().min(6).max(50).required("Password is required"),
 });
 
 const initialValues = {
@@ -23,9 +23,9 @@ function LoginPage() {
     onSubmit: async (values) => {
       try {
         const response = await login(values.username, values.password);
-        if (response.status === 200) {
+        if (response) {
           localStorage.setItem("user", JSON.stringify(response.user));
-          navigate("/");
+          navigate("/home");
         }
       } catch (error) {
         console.error("Login failed", error);

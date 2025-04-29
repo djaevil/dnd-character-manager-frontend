@@ -10,7 +10,7 @@ function GuestLayout({ children }: GuestLayoutProps) {
       <div
         className="d-flex flex-column justify-content-between vh-100 vw-100 overflow-hidden"
         style={{
-          backgroundImage: "url('/dndimg.jpg')",
+          backgroundImage: "url('/Saltmarsh.jpeg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -22,7 +22,7 @@ function GuestLayout({ children }: GuestLayoutProps) {
         <div className="row align-items-center justify-content-center">
           <div
             className="w-100 rounded-3 bg-dark p-3 shadow-lg"
-            style={{ maxWidth: "500px" }}
+            style={{ maxWidth: "450px" }}
           >
             {children}
           </div>

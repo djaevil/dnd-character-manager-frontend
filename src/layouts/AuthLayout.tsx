@@ -11,7 +11,7 @@ function AuthLayout({ children }: AuthLayoutProps) {
       {/* Navbar */}
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container>
-          <Navbar.Brand href="/">DnD Character Manager</Navbar.Brand>
+          <Navbar.Brand href="/home">DnD Character Manager</Navbar.Brand>
         </Container>
       </Navbar>
 
