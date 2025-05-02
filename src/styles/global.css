@@ -1,0 +1,15 @@
+.homepage-bg {
+  background-image: url("/Saltmarsh.jpeg");
+  background-size: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.guest-bg {
+  background-image: url("/Saltmarsh.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}

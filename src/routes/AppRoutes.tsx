@@ -4,6 +4,7 @@ import GuestLayout from "../layouts/GuestLayout";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
+import NotFoundPage from "../pages/NotFoundPage";
 import ProtectedRoute from "./ProtectedRoute";
 import GuestRoute from "./GuestRoute";
 
@@ -41,6 +42,7 @@ function App() {
             </GuestRoute>
           }
         />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );

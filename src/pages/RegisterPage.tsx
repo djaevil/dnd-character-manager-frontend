@@ -34,7 +34,7 @@ function RegisterPage() {
   const formik = useFormik({
     initialValues,
     validationSchema: registerSchema,
-    onSubmit: async (values) => {
+    onSubmit: async (values, { setSubmitting }) => {
       try {
         const response = await register(
           values.username,
@@ -57,6 +57,7 @@ function RegisterPage() {
       } catch (error) {
         console.error("Registration failed", error);
       }
+      setSubmitting(false);
     },
   });
 
@@ -158,7 +159,11 @@ function RegisterPage() {
         ) : null}
       </div>
       <div className="form-group mb-3 mt-4">
-        <button type="submit" className="btn btn-warning w-100">
+        <button
+          type="submit"
+          className="btn btn-warning w-100"
+          disabled={formik.isSubmitting || !formik.isValid}
+        >
           Register
         </button>
       </div>
