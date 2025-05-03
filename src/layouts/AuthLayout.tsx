@@ -1,17 +1,55 @@
 import { ReactNode } from "react";
-import { Navbar, Container } from "react-bootstrap";
-
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 interface AuthLayoutProps {
   children: ReactNode;
 }
 
 function AuthLayout({ children }: AuthLayoutProps) {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logged out of your account.",
+      icon: "warning",
+      theme: "dark",
+      showCancelButton: true,
+      cancelButtonColor: "#dc3545",
+      confirmButtonColor: "#ffc107",
+      confirmButtonText: "Yes, log out",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logout();
+        navigate("/login");
+      }
+    });
+  };
+
   return (
     <div className="d-flex flex-column min-vh-100 homepage-bg">
       {/* Navbar */}
       <Navbar sticky="top" bg="dark" variant="dark" expand="lg">
         <Container>
           <Navbar.Brand href="/home">DnD Character Manager</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse
+            id="basic-navbar-nav"
+            className="justify-content-end"
+          >
+            <Nav>
+              <NavDropdown title="More" id="nav-dropdown">
+                <NavDropdown.Item href="#">Profile</NavDropdown.Item>
+                <NavDropdown.Item onClick={handleLogout}>
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
         </Container>
       </Navbar>
 
