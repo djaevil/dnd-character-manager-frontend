@@ -3,10 +3,12 @@ import { useAuth } from "../hooks/useAuth";
 import { getAllCharacters } from "../api/character.api";
 import { Character } from "../models/CharacterModel";
 import CharacterCard from "../components/CharacterCard/CharacterCard";
+import CharacterCreationModal from "../components/CharacterCreation/CharacterCreationModal";
 
 function HomePage() {
   const { currentUser } = useAuth();
   const [characters, setCharacters] = useState<Character[]>([]);
+  const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -27,7 +29,10 @@ function HomePage() {
   return (
     <div className="bg-dark rounded shadow p-4 text-light mt-4 w-100">
       <h2>Welcome, {currentUser?.username}!</h2>
-      <button className="btn btn-warning my-3" style={{ fontWeight: "bold" }}>
+      <button
+        className="btn btn-warning my-3 fw-bold"
+        onClick={() => setShowModal(true)}
+      >
         Create New Character
       </button>
 
@@ -47,6 +52,9 @@ function HomePage() {
           </div>
         )}
       </div>
+      {showModal && (
+        <CharacterCreationModal onClose={() => setShowModal(false)} />
+      )}
     </div>
   );
 }
