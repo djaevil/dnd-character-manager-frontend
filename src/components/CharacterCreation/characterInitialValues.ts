@@ -1,6 +1,6 @@
-import { CharacterFormValues } from "./CharacterFormValues";
+import { Character } from "../../models/CharacterModel";
 
-export const initialCharacter: CharacterFormValues = {
+export const initialCharacter: Character = {
   name: "",
   race: "",
   class: "",

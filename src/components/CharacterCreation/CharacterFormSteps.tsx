@@ -3,11 +3,11 @@ import Step2 from "./formSteps/Step2";
 import Step3 from "./formSteps/Step3";
 import Step4 from "./formSteps/Step4";
 import { FormikProps } from "formik";
-import { CharacterFormValues } from "./CharacterFormValues";
+import { Character } from "../../models/CharacterModel";
 
 interface Props {
   step: number;
-  formik: FormikProps<CharacterFormValues>;
+  formik: FormikProps<Character>;
 }
 
 const CharacterFormSteps = ({ step, formik }: Props) => {

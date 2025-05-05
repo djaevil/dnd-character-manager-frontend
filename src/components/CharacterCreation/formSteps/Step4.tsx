@@ -1,7 +1,7 @@
 import { FormikProps } from "formik";
-import { CharacterFormValues } from "../CharacterFormValues";
+import { Character } from "../../../models/CharacterModel";
 
-const Step4 = ({ formik }: { formik: FormikProps<CharacterFormValues> }) => (
+const Step4 = ({ formik }: { formik: FormikProps<Character> }) => (
   <div className="form-group">
     <label className="form-label" htmlFor="notes">
       Notes

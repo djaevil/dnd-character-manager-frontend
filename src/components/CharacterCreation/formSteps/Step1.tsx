@@ -1,12 +1,12 @@
 import { FC } from "react";
 import { FormikProps } from "formik";
-import { CharacterFormValues } from "../CharacterFormValues";
+import { Character } from "../../../models/CharacterModel";
 
 interface Props {
-  formik: FormikProps<CharacterFormValues>;
+  formik: FormikProps<Character>;
 }
 
-const basicInfoFields: (keyof CharacterFormValues)[] = [
+const basicInfoFields: (keyof Character)[] = [
   "name",
   "race",
   "class",
@@ -21,7 +21,12 @@ const Step1: FC<Props> = ({ formik }) => {
       <h5>Basic Info</h5>
       {basicInfoFields.map((field) => (
         <div className="mb-3" key={field}>
-          <label className="form-label text-capitalize" htmlFor={field}>
+          <label
+            className={`form-label text-capitalize ${
+              ["race", "class", "background"].includes(field) ? "" : "required"
+            }`}
+            htmlFor={field}
+          >
             {field}
           </label>
           <input

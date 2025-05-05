@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { FormikProps } from "formik";
-import { CharacterFormValues } from "../CharacterFormValues";
+import { Character } from "../../../models/CharacterModel";
 
 const stats = [
   "strength",
@@ -32,7 +32,7 @@ const skills = [
 ];
 
 interface Props {
-  formik: FormikProps<CharacterFormValues>;
+  formik: FormikProps<Character>;
 }
 
 const Step2: FC<Props> = ({ formik }) => {
@@ -42,7 +42,7 @@ const Step2: FC<Props> = ({ formik }) => {
       {stats.map((stat) => (
         <div key={stat} className="form-group mb-2">
           <label
-            className="form-label text-capitalize"
+            className="form-label text-capitalize required"
             htmlFor={`stats.${stat}`}
           >
             {stat}
@@ -51,26 +51,20 @@ const Step2: FC<Props> = ({ formik }) => {
             type="number"
             id={`stats.${stat}`}
             className={`form-control ${
-              formik.touched.stats?.[
-                stat as keyof CharacterFormValues["stats"]
-              ] &&
-              formik.errors.stats?.[stat as keyof CharacterFormValues["stats"]]
+              formik.touched.stats?.[stat as keyof Character["stats"]] &&
+              formik.errors.stats?.[stat as keyof Character["stats"]]
                 ? "is-invalid"
                 : ""
             }`}
             {...formik.getFieldProps(`stats.${stat}`)}
           />
-          {formik.touched.stats?.[stat as keyof CharacterFormValues["stats"]] &&
-            formik.errors.stats?.[
-              stat as keyof CharacterFormValues["stats"]
-            ] && (
+          {formik.touched.stats?.[stat as keyof Character["stats"]] &&
+            formik.errors.stats?.[stat as keyof Character["stats"]] && (
               <div className="invalid-feedback">
                 {typeof formik.errors.stats?.[
-                  stat as keyof CharacterFormValues["stats"]
+                  stat as keyof Character["stats"]
                 ] === "string"
-                  ? formik.errors.stats?.[
-                      stat as keyof CharacterFormValues["stats"]
-                    ]
+                  ? formik.errors.stats?.[stat as keyof Character["stats"]]
                   : ""}
               </div>
             )}
@@ -81,7 +75,7 @@ const Step2: FC<Props> = ({ formik }) => {
       {skills.map((skill) => (
         <div key={skill} className="form-group mb-2">
           <label
-            className="form-label text-capitalize"
+            className="form-label text-capitalize required"
             htmlFor={`skills.${skill}`}
           >
             {skill}
@@ -90,30 +84,20 @@ const Step2: FC<Props> = ({ formik }) => {
             type="number"
             id={`skills.${skill}`}
             className={`form-control ${
-              formik.touched.skills?.[
-                skill as keyof CharacterFormValues["skills"]
-              ] &&
-              formik.errors.skills?.[
-                skill as keyof CharacterFormValues["skills"]
-              ]
+              formik.touched.skills?.[skill as keyof Character["skills"]] &&
+              formik.errors.skills?.[skill as keyof Character["skills"]]
                 ? "is-invalid"
                 : ""
             }`}
             {...formik.getFieldProps(`skills.${skill}`)}
           />
-          {formik.touched.skills?.[
-            skill as keyof CharacterFormValues["skills"]
-          ] &&
-            formik.errors.skills?.[
-              skill as keyof CharacterFormValues["skills"]
-            ] && (
+          {formik.touched.skills?.[skill as keyof Character["skills"]] &&
+            formik.errors.skills?.[skill as keyof Character["skills"]] && (
               <div className="invalid-feedback">
                 {typeof formik.errors.skills?.[
-                  skill as keyof CharacterFormValues["skills"]
+                  skill as keyof Character["skills"]
                 ] === "string"
-                  ? formik.errors.skills?.[
-                      skill as keyof CharacterFormValues["skills"]
-                    ]
+                  ? formik.errors.skills?.[skill as keyof Character["skills"]]
                   : ""}
               </div>
             )}

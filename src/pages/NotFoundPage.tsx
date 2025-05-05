@@ -5,7 +5,7 @@ const NotFoundPage = () => {
   const { currentUser } = useAuth();
 
   return (
-    <div style={{ textAlign: "center", marginTop: "4rem" }}>
+    <div className="text-center text-light p-5">
       <h1>404 - Page Not Found</h1>
       <p>The page you're looking for doesn't exist.</p>
       {currentUser ? (

@@ -20,7 +20,7 @@ function AuthLayout({ children }: AuthLayoutProps) {
       showCancelButton: true,
       cancelButtonColor: "#dc3545",
       confirmButtonColor: "#ffc107",
-      confirmButtonText: "Yes, log out",
+      confirmButtonText: "Yes, logout",
       cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
@@ -31,7 +31,7 @@ function AuthLayout({ children }: AuthLayoutProps) {
   };
 
   return (
-    <div className="d-flex flex-column min-vh-100 homepage-bg">
+    <div className="d-flex flex-column min-vh-100 page-bg">
       {/* Navbar */}
       <Navbar sticky="top" bg="dark" variant="dark" expand="lg">
         <Container>

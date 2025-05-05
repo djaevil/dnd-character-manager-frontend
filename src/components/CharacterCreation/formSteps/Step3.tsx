@@ -1,7 +1,7 @@
 import { FormikProps } from "formik";
-import { CharacterFormValues } from "../CharacterFormValues";
+import { Character } from "../../../models/CharacterModel";
 
-const Step3 = ({ formik }: { formik: FormikProps<CharacterFormValues> }) => (
+const Step3 = ({ formik }: { formik: FormikProps<Character> }) => (
   <div>
     {["equipment", "spells", "features"].map((field) => (
       <div key={field} className="form-group mb-4">

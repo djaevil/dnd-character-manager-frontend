@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
 import GuestLayout from "../layouts/GuestLayout";
 import HomePage from "../pages/HomePage";
+import CharacterPage from "../pages/CharacterPage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import NotFoundPage from "../pages/NotFoundPage";
@@ -18,6 +19,16 @@ function App() {
             <ProtectedRoute>
               <AuthLayout>
                 <HomePage />
+              </AuthLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/characters/:id"
+          element={
+            <ProtectedRoute>
+              <AuthLayout>
+                <CharacterPage />
               </AuthLayout>
             </ProtectedRoute>
           }
@@ -42,7 +53,14 @@ function App() {
             </GuestRoute>
           }
         />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route
+          path="*"
+          element={
+            <GuestLayout>
+              <NotFoundPage />
+            </GuestLayout>
+          }
+        />
       </Routes>
     </Router>
   );
