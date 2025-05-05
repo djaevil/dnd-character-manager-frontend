@@ -4,6 +4,8 @@ import { initialCharacter } from "./characterInitialValues";
 import { characterFormSchema } from "./characterFormSchema";
 import { CharacterFormValues } from "./CharacterFormValues";
 import CharacterFormSteps from "./CharacterFormSteps";
+import { createCharacter } from "../../api/character.api";
+import Swal from "sweetalert2";
 
 interface Props {
   onClose: () => void;
@@ -15,8 +17,30 @@ const CharacterCreationModal = ({ onClose }: Props) => {
   const formik = useFormik<CharacterFormValues>({
     initialValues: initialCharacter,
     validationSchema: characterFormSchema,
-    onSubmit: (values) => {
-      console.log("Submitted character:", values);
+    onSubmit: async (values, { setSubmitting }) => {
+      try {
+        const characterData = { ...values };
+        const { data } = await createCharacter(characterData);
+        if (data) {
+          Swal.fire({
+            icon: "success",
+            theme: "dark",
+            title: "Character created successfully",
+            text: "Your character has been created.",
+            confirmButtonColor: "#ffc107",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Character creation failed",
+            text: "Please try again.",
+            confirmButtonColor: "#dc3545",
+          });
+        }
+      } catch (error) {
+        console.error("Error creating character:", error);
+      }
+      setSubmitting(false);
       onClose();
     },
   });
@@ -27,7 +51,7 @@ const CharacterCreationModal = ({ onClose }: Props) => {
   return (
     <div className="modal show d-block">
       <div className="modal-dialog modal-lg">
-        <form onSubmit={formik.handleSubmit} className="modal-content p-4">
+        <form className="modal-content p-4" noValidate>
           <h3>Create Character</h3>
 
           <CharacterFormSteps step={step} formik={formik} />
@@ -59,7 +83,16 @@ const CharacterCreationModal = ({ onClose }: Props) => {
                 Next
               </button>
             ) : (
-              <button type="submit" className="btn btn-success">
+              <button
+                type="button"
+                className="btn btn-success"
+                disabled={formik.isSubmitting}
+                onClick={() => {
+                  if (formik.isValid && !formik.isSubmitting) {
+                    formik.handleSubmit();
+                  }
+                }}
+              >
                 Submit
               </button>
             )}

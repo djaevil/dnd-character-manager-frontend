@@ -21,9 +21,12 @@ const Step1: FC<Props> = ({ formik }) => {
       <h5>Basic Info</h5>
       {basicInfoFields.map((field) => (
         <div className="mb-3" key={field}>
-          <label className="form-label text-capitalize">{field}</label>
+          <label className="form-label text-capitalize" htmlFor={field}>
+            {field}
+          </label>
           <input
             type={["level", "healthPoints"].includes(field) ? "number" : "text"}
+            id={field}
             name={field}
             value={formik.values[field] as string | number}
             onChange={formik.handleChange}

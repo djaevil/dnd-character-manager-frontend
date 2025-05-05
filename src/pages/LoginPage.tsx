@@ -144,7 +144,7 @@ function LoginPage() {
           className="btn btn-link w-100 text-decoration-none text-light"
         >
           Don't have an account?
-          <span style={{ fontWeight: "bold" }}> Register here!</span>
+          <span className="fw-bold"> Register here!</span>
         </button>
       </div>
     </form>

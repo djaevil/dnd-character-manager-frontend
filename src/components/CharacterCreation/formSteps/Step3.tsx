@@ -5,7 +5,7 @@ const Step3 = ({ formik }: { formik: FormikProps<CharacterFormValues> }) => (
   <div>
     {["equipment", "spells", "features"].map((field) => (
       <div key={field} className="form-group mb-4">
-        <label className="" htmlFor={field}>
+        <label className="form-label" htmlFor={field}>
           {field.charAt(0).toUpperCase() + field.slice(1)}
         </label>
         <input

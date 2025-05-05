@@ -3,7 +3,7 @@ import { CharacterFormValues } from "../CharacterFormValues";
 
 const Step4 = ({ formik }: { formik: FormikProps<CharacterFormValues> }) => (
   <div className="form-group">
-    <label className="" htmlFor="notes">
+    <label className="form-label" htmlFor="notes">
       Notes
     </label>
     <textarea
