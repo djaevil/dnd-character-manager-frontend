@@ -10,11 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mui/material": "^7.0.1",
-    "@tanstack/react-query": "^5.71.1",
     "axios": "^1.8.4",
     "bootstrap": "^5.3.3",
-    "clsx": "^2.1.1",
     "formik": "^2.4.6",
     "js-cookie": "^3.0.5",
     "react": "^19.0.0",
