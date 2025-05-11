@@ -43,7 +43,6 @@ function AuthLayout({ children }: AuthLayoutProps) {
           >
             <Nav>
               <NavDropdown title="More" id="nav-dropdown">
-                <NavDropdown.Item href="#">Profile</NavDropdown.Item>
                 <NavDropdown.Item onClick={handleLogout}>
                   Logout
                 </NavDropdown.Item>
