@@ -1,10 +1,19 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles/index.css";
+import App from "./routes/AppRoutes.tsx";
+import axiosClient from "./api/axiosClient.ts";
+import { setupAxios } from "./helpers/AuthHelpers.ts";
+import { AuthProvider, AuthInit } from "./context/AuthContext.tsx";
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+setupAxios(axiosClient);
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <AuthProvider>
+      <AuthInit>
+        <App />
+      </AuthInit>
+    </AuthProvider>
+  </React.StrictMode>
+);
